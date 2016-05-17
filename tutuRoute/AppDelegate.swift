@@ -17,7 +17,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        Datamodel.initBase()
+        // при первом входе в прилодение, будет заполнена база из файла предоставленного в задании: на это потребуется достаточно длительное время
+        if NSUserDefaults.standardUserDefaults().valueForKey("launched") == nil {
+            Datamodel.fillBase()
+            NSUserDefaults.standardUserDefaults().setBool(true, forKey: "launched")
+        }
+        
         return true
+        
     }
 
     func applicationWillResignActive(application: UIApplication) {

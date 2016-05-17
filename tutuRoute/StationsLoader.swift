@@ -9,14 +9,15 @@
 import Foundation
 
 
-protocol  StationDataControllerDelegate {
-    func didRecievedStations(cities : [String], stations : [String : [Station]])
-}
+//класс для асинхронной загрузки станций
+
 class StationsLoader {
     var actual : Bool = true
-    var delegate : StationDataControllerDelegate?
     
-    func getStations(withSearchString searchText : String, byDirection direction : Direction){
+    
+    //метод обращается к базе для получения списка городов, удовлетворяющих требованиям поиска, а затем для каждого города получает список станций
+    //в параметрах передается метод для обработки результатов
+    func getStations(withSearchString searchText : String, byDirection direction : Direction, completion : (cities : [String], stations : [String : [Station]])->Void){
         
         let qualityOfServiceClass = QOS_CLASS_BACKGROUND
         let backgroundQueue = dispatch_get_global_queue(qualityOfServiceClass, 0)
@@ -35,7 +36,7 @@ class StationsLoader {
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 
                 if self.actual {
-                    self.delegate?.didRecievedStations(newCitiesForFilteredStations, stations: newFilteredStations)
+                    completion(cities: newCitiesForFilteredStations, stations: newFilteredStations)
                 }
             })
         })

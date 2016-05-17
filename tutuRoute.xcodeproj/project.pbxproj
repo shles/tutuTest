@@ -7,14 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A9027D3428F578958034AAE /* Pods_tutuRoute.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42B90D87A80EA9D1B2F8FFE7 /* Pods_tutuRoute.framework */; };
+		FD599B601CEB76DE006E9D4D /* StationsLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD599B5F1CEB76DE006E9D4D /* StationsLoader.swift */; };
 		FDAE5CB81CE50CE6000D1DCB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDAE5CB71CE50CE6000D1DCB /* AppDelegate.swift */; };
-		FDAE5CBA1CE50CE6000D1DCB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDAE5CB91CE50CE6000D1DCB /* ViewController.swift */; };
 		FDAE5CBD1CE50CE6000D1DCB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FDAE5CBB1CE50CE6000D1DCB /* Main.storyboard */; };
 		FDAE5CC01CE50CE6000D1DCB /* tutuRoute.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FDAE5CBE1CE50CE6000D1DCB /* tutuRoute.xcdatamodeld */; };
 		FDAE5CC21CE50CE6000D1DCB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FDAE5CC11CE50CE6000D1DCB /* Assets.xcassets */; };
 		FDAE5CC51CE50CE6000D1DCB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FDAE5CC31CE50CE6000D1DCB /* LaunchScreen.storyboard */; };
 		FDAE5CD01CE50CE6000D1DCB /* tutuRouteTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDAE5CCF1CE50CE6000D1DCB /* tutuRouteTests.swift */; };
 		FDAE5CDB1CE50CE6000D1DCB /* tutuRouteUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDAE5CDA1CE50CE6000D1DCB /* tutuRouteUITests.swift */; };
+		FDAE5CE91CE77463000D1DCB /* Datamodel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDAE5CE81CE77463000D1DCB /* Datamodel.swift */; };
+		FDAE5CEB1CE77693000D1DCB /* Station.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDAE5CEA1CE77693000D1DCB /* Station.swift */; };
+		FDAE5CED1CE92260000D1DCB /* stations.json in Resources */ = {isa = PBXBuildFile; fileRef = FDAE5CEC1CE92260000D1DCB /* stations.json */; };
+		FDAE5CEF1CE92891000D1DCB /* StationsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDAE5CEE1CE92891000D1DCB /* StationsListViewController.swift */; };
+		FDBFE07C1CEA1D1D00304322 /* RouteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDBFE07B1CEA1D1D00304322 /* RouteViewController.swift */; };
+		FDBFE07E1CEA393E00304322 /* StationInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDBFE07D1CEA393E00304322 /* StationInfoViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,9 +42,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2EA1BBDC8E0D82070FC9D20A /* Pods-tutuRoute.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tutuRoute.debug.xcconfig"; path = "Pods/Target Support Files/Pods-tutuRoute/Pods-tutuRoute.debug.xcconfig"; sourceTree = "<group>"; };
+		4097E60AC6982CCF0B55D4D1 /* Pods-tutuRoute.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tutuRoute.release.xcconfig"; path = "Pods/Target Support Files/Pods-tutuRoute/Pods-tutuRoute.release.xcconfig"; sourceTree = "<group>"; };
+		42B90D87A80EA9D1B2F8FFE7 /* Pods_tutuRoute.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_tutuRoute.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FD599B5F1CEB76DE006E9D4D /* StationsLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StationsLoader.swift; sourceTree = "<group>"; };
 		FDAE5CB41CE50CE6000D1DCB /* tutuRoute.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = tutuRoute.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FDAE5CB71CE50CE6000D1DCB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		FDAE5CB91CE50CE6000D1DCB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		FDAE5CBC1CE50CE6000D1DCB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		FDAE5CBF1CE50CE6000D1DCB /* tutuRoute.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = tutuRoute.xcdatamodel; sourceTree = "<group>"; };
 		FDAE5CC11CE50CE6000D1DCB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -49,6 +59,12 @@
 		FDAE5CD61CE50CE6000D1DCB /* tutuRouteUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = tutuRouteUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FDAE5CDA1CE50CE6000D1DCB /* tutuRouteUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tutuRouteUITests.swift; sourceTree = "<group>"; };
 		FDAE5CDC1CE50CE6000D1DCB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FDAE5CE81CE77463000D1DCB /* Datamodel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Datamodel.swift; sourceTree = "<group>"; };
+		FDAE5CEA1CE77693000D1DCB /* Station.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Station.swift; sourceTree = "<group>"; };
+		FDAE5CEC1CE92260000D1DCB /* stations.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = stations.json; sourceTree = "<group>"; };
+		FDAE5CEE1CE92891000D1DCB /* StationsListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StationsListViewController.swift; sourceTree = "<group>"; };
+		FDBFE07B1CEA1D1D00304322 /* RouteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteViewController.swift; sourceTree = "<group>"; };
+		FDBFE07D1CEA393E00304322 /* StationInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StationInfoViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +72,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1A9027D3428F578958034AAE /* Pods_tutuRoute.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -76,6 +93,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		13CEB3463FB2817FFE3FC92D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				42B90D87A80EA9D1B2F8FFE7 /* Pods_tutuRoute.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		65DFB9573729D02019E7BDCB /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				2EA1BBDC8E0D82070FC9D20A /* Pods-tutuRoute.debug.xcconfig */,
+				4097E60AC6982CCF0B55D4D1 /* Pods-tutuRoute.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		FDAE5CAB1CE50CE6000D1DCB = {
 			isa = PBXGroup;
 			children = (
@@ -83,6 +117,8 @@
 				FDAE5CCE1CE50CE6000D1DCB /* tutuRouteTests */,
 				FDAE5CD91CE50CE6000D1DCB /* tutuRouteUITests */,
 				FDAE5CB51CE50CE6000D1DCB /* Products */,
+				65DFB9573729D02019E7BDCB /* Pods */,
+				13CEB3463FB2817FFE3FC92D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -99,8 +135,14 @@
 		FDAE5CB61CE50CE6000D1DCB /* tutuRoute */ = {
 			isa = PBXGroup;
 			children = (
+				FDAE5CE81CE77463000D1DCB /* Datamodel.swift */,
+				FD599B5F1CEB76DE006E9D4D /* StationsLoader.swift */,
+				FDBFE07B1CEA1D1D00304322 /* RouteViewController.swift */,
+				FDAE5CEA1CE77693000D1DCB /* Station.swift */,
+				FDAE5CEE1CE92891000D1DCB /* StationsListViewController.swift */,
+				FDBFE07D1CEA393E00304322 /* StationInfoViewController.swift */,
 				FDAE5CB71CE50CE6000D1DCB /* AppDelegate.swift */,
-				FDAE5CB91CE50CE6000D1DCB /* ViewController.swift */,
+				FDAE5CEC1CE92260000D1DCB /* stations.json */,
 				FDAE5CBB1CE50CE6000D1DCB /* Main.storyboard */,
 				FDAE5CC11CE50CE6000D1DCB /* Assets.xcassets */,
 				FDAE5CC31CE50CE6000D1DCB /* LaunchScreen.storyboard */,
@@ -135,9 +177,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FDAE5CDF1CE50CE6000D1DCB /* Build configuration list for PBXNativeTarget "tutuRoute" */;
 			buildPhases = (
+				466D17D7567F48717DFFF944 /* Check Pods Manifest.lock */,
 				FDAE5CB01CE50CE6000D1DCB /* Sources */,
 				FDAE5CB11CE50CE6000D1DCB /* Frameworks */,
 				FDAE5CB21CE50CE6000D1DCB /* Resources */,
+				00D0D8BE7C9CBB4EBF4526C1 /* Embed Pods Frameworks */,
+				23DB432DB84578AF4D97547F /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -234,6 +279,7 @@
 			files = (
 				FDAE5CC51CE50CE6000D1DCB /* LaunchScreen.storyboard in Resources */,
 				FDAE5CC21CE50CE6000D1DCB /* Assets.xcassets in Resources */,
+				FDAE5CED1CE92260000D1DCB /* stations.json in Resources */,
 				FDAE5CBD1CE50CE6000D1DCB /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -254,14 +300,67 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		00D0D8BE7C9CBB4EBF4526C1 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-tutuRoute/Pods-tutuRoute-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		23DB432DB84578AF4D97547F /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-tutuRoute/Pods-tutuRoute-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		466D17D7567F48717DFFF944 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		FDAE5CB01CE50CE6000D1DCB /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				FDAE5CC01CE50CE6000D1DCB /* tutuRoute.xcdatamodeld in Sources */,
-				FDAE5CBA1CE50CE6000D1DCB /* ViewController.swift in Sources */,
+				FDAE5CEB1CE77693000D1DCB /* Station.swift in Sources */,
+				FDAE5CEF1CE92891000D1DCB /* StationsListViewController.swift in Sources */,
+				FDAE5CE91CE77463000D1DCB /* Datamodel.swift in Sources */,
 				FDAE5CB81CE50CE6000D1DCB /* AppDelegate.swift in Sources */,
+				FDBFE07C1CEA1D1D00304322 /* RouteViewController.swift in Sources */,
+				FD599B601CEB76DE006E9D4D /* StationsLoader.swift in Sources */,
+				FDBFE07E1CEA393E00304322 /* StationInfoViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -403,6 +502,7 @@
 		};
 		FDAE5CE01CE50CE6000D1DCB /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2EA1BBDC8E0D82070FC9D20A /* Pods-tutuRoute.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = tutuRoute/Info.plist;
@@ -414,6 +514,7 @@
 		};
 		FDAE5CE11CE50CE6000D1DCB /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4097E60AC6982CCF0B55D4D1 /* Pods-tutuRoute.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = tutuRoute/Info.plist;
@@ -488,6 +589,7 @@
 				FDAE5CE11CE50CE6000D1DCB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		FDAE5CE21CE50CE6000D1DCB /* Build configuration list for PBXNativeTarget "tutuRouteTests" */ = {
 			isa = XCConfigurationList;
@@ -496,6 +598,7 @@
 				FDAE5CE41CE50CE6000D1DCB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		FDAE5CE51CE50CE6000D1DCB /* Build configuration list for PBXNativeTarget "tutuRouteUITests" */ = {
 			isa = XCConfigurationList;
@@ -504,6 +607,7 @@
 				FDAE5CE71CE50CE6000D1DCB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

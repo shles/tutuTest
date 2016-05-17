@@ -1,0 +1,21 @@
+PODS:
+  - DatePickerCell (1.0.4)
+  - FMDB (2.6.2):
+    - FMDB/standard (= 2.6.2)
+  - FMDB/standard (2.6.2)
+  - RMActionController (1.0.5)
+  - RMDateSelectionViewController (2.0.3):
+    - RMActionController (~> 1.0.5)
+
+DEPENDENCIES:
+  - DatePickerCell
+  - FMDB
+  - RMDateSelectionViewController (~> 2.0.3)
+
+SPEC CHECKSUMS:
+  DatePickerCell: 20d2ba8b5cd5bb8a5a79e2b43bc7758e3b65daf2
+  FMDB: 854a0341b4726e53276f2a8996f06f1b80f9259a
+  RMActionController: b83653e7452ed51492094d65dc82151c36443c03
+  RMDateSelectionViewController: 354a0f1fe40bac01054528b7a8735f2973bbd813
+
+COCOAPODS: 0.39.0

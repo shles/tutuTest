@@ -7,11 +7,13 @@
 //
 
 import Foundation
+import FMDB
 
- class Datamodel {
+//класс для работы с базой данных, испольщующий библиотеку FMDB
+class Datamodel {
     
     static var databaseInstance : FMDatabase?
-    static var currentUser : User?
+    static var databaseQueue : FMDatabaseQueue?
     
     class func initBase() -> Bool {
         
@@ -22,86 +24,45 @@ import Foundation
         
         let docsDir = dirPaths[0] as NSString
         
-        let databasePath = docsDir.stringByAppendingPathComponent("doutra.db")
+        let databasePath = docsDir.stringByAppendingPathComponent("tutu.db")
         
         databaseInstance = FMDatabase(path: databasePath as String)
         
-        if !filemgr.fileExistsAtPath(databasePath as String) {
-            
-            
-            
-            if databaseInstance == nil {
-                print("Error: \(databaseInstance!.lastErrorMessage())")
-                return false
-            }
-            if databaseInstance!.open() {
-                
-                
-                let sql_stmt_user = "CREATE TABLE IF NOT EXISTS USER (ID INTEGER PRIMARY KEY AUTOINCREMENT, NAME TEXT, SURNAME TEXT, PHONE TEXT, PHOTO_URL TEXT)"
-                if !databaseInstance!.executeStatements(sql_stmt_user) {
-                    print("Error: \(databaseInstance!.lastErrorMessage())")
-                     return false
-                }
-                let sql_stmt_place = "CREATE TABLE IF NOT EXISTS PLACE (ID INTEGER PRIMARY KEY AUTOINCREMENT, NAME TEXT, ADRESS TEXT, RATE REAL, PHOTO_URL TEXT, NUMBEROFRATES INTEGER)"
-                if !databaseInstance!.executeStatements(sql_stmt_place) {
-                    print("Error: \(databaseInstance!.lastErrorMessage())")
-                     return false
-                }
-                let sql_stmt_comment = "CREATE TABLE IF NOT EXISTS COMMENT (ID INTEGER PRIMARY KEY AUTOINCREMENT, MESSAGE TEXT, USER_ID INTEGER, PLACE_ID INTEGER, DATE TEXT)"
-                if !databaseInstance!.executeStatements(sql_stmt_comment) {
-                    print("Error: \(databaseInstance!.lastErrorMessage())")
-                     return false
-                }
-                
-                databaseInstance?.close()
-                return true
-            }
-        }
+        databaseQueue = FMDatabaseQueue(path: databasePath as String)
         
+            
+            
+        if databaseInstance == nil {
+            print("Error: \(databaseInstance!.lastErrorMessage())")
+            return false
+        }
+        if databaseInstance!.open() {
+            
+            
+            let sql_stmt_station_from_base = "CREATE TABLE IF NOT EXISTS STATION (ID INTEGER PRIMARY KEY AUTOINCREMENT, countryTitle TEXT, districtTitle TEXT, cityId INTEGER, cityTitle TEXT, regionTitle TEXT, stationId INTEGER, stationTitle TEXT,longitude REAL, latitude REAL, direction INTEGER)"
+            if !databaseInstance!.executeStatements(sql_stmt_station_from_base) {
+                print("Error: \(databaseInstance!.lastErrorMessage())")
+                 return false
+            }
+            
+            databaseInstance?.close()
+            return true
+        }
         
         return true
     }
     
-    class func saveItem (comment : Comment) -> Bool{
+    //сохранение станции в базу данных 
+    
+    class func saveStation(station : Station) -> Bool{
         databaseInstance?.open()
-        let insertSQL = "INSERT INTO COMMENT (MESSAGE, USER_ID, PLACE_ID, DATE) VALUES ('\(comment.message)', '\(comment.userID)', '\(comment.placeID)','\(comment.dateAsString())' )"
+        let insertSQL = "INSERT INTO STATION (countryTitle , districtTitle , cityId , cityTitle , regionTitle , stationId , stationTitle ,longitude , latitude, direction) VALUES ('\(station.countryTitle)', '\(station.districtTitle)', \(station.cityId),'\(station.cityTitle)', '\(station.regionTitle)', \(station.stationId), '\(station.stationTitle)', \(station.point.x), \(station.point.y), \(station.direction.rawValue))"
         
         let result = databaseInstance!.executeUpdate(insertSQL, withArgumentsInArray: nil)
         databaseInstance?.close()
 
         if !result {
-            print("Failed to add contact")
-            print("Error: \(databaseInstance!.lastErrorMessage())")
-            return false
-        } else {
-            return true
-        }
-    }
-    class func saveItem (user : User)-> Bool {
-        databaseInstance?.open()
-        let insertSQL = "INSERT INTO USER (name, surname, phone, photo_url) VALUES ('\(user.name)', '\(user.surname)', '\(user.phone)', '\(user.photoURL)')"
-        
-        let result = databaseInstance!.executeUpdate(insertSQL, withArgumentsInArray: nil)
-        databaseInstance?.close()
-
-        if !result {
-            print("Failed to add contact")
-            print("Error: \(databaseInstance!.lastErrorMessage())")
-            return false
-        } else {
-            return true
-        }
-    }
-    class func saveItem (place : Place) -> Bool{
-        databaseInstance?.open()
-        
-        let insertSQL = "INSERT INTO PLACE (name, adress, rate, photo_url, NUMBEROFRATES) VALUES  ('\(place.name)', '\(place.adress)', \(place.rate), '\(place.photoURL)', 0 )"
-        
-        let result = databaseInstance!.executeUpdate(insertSQL, withArgumentsInArray: nil)
-        databaseInstance?.close()
-
-        if !result {
-            print("Failed to add contact")
+            print("Failed to add station")
             print("Error: \(databaseInstance!.lastErrorMessage())")
             return false
         } else {
@@ -109,112 +70,139 @@ import Foundation
         }
     }
     
-    class func getPlacesByRate() -> [Place] {
-        
-        var places : [Place] = []
+    //метод, который переписывает содержимое json файла в базу данных
+    //для каждой станции указывается ее направление 
+    
+    class func fillBase() {
+        if let path = NSBundle.mainBundle().pathForResource("stations", ofType: "json")
+        {
+            do {
+               let jsonData = try NSData(contentsOfFile: path, options: NSDataReadingOptions.DataReadingMappedIfSafe)
+                do {
+                    
+                let jsonResult: NSDictionary = try NSJSONSerialization.JSONObjectWithData(jsonData, options: NSJSONReadingOptions.MutableContainers) as! NSDictionary
+                
+                    if let citiesFrom : NSArray = jsonResult["citiesFrom"] as? NSArray
+                    {
+                        for city in citiesFrom {
+                            if let stations = city["stations"] as? NSArray {
+                                for stationDict in stations {
+                                    
+                                    
+                                    let station = Station(jsonDict: stationDict as! [NSObject : AnyObject], withDirection: Direction.From)
+                                    
+                                    saveStation(station)
+                                    
+                                }
+                            }
+                        }
+                    }
+                    
+                    if let citiesFrom : NSArray = jsonResult["citiesTo"] as? NSArray
+                    {
+                        for city in citiesFrom {
+                            if let stations = city["stations"] as? NSArray {
+                                for stationDict in stations {
+                                    let station = Station(jsonDict: stationDict as! [NSObject : AnyObject], withDirection: Direction.To)
+                                    saveStation(station)
+                                }
+                            }
+                        }
+                    }
+
+                }
+            } catch {
+                print("error while reading file")
+            }
+            
+        }
+    }
+    
+    class func getCitiesList(direction : Direction) -> [String]  {
         databaseInstance?.open()
         
-        let querySQL = "SELECT * FROM PLACE ORDER BY rate DESC"
+        let querySQL = "SELECT DISTINCT cityTitle FROM STATION WHERE direction = \(direction.rawValue) ORDER BY cityTitle ASC"
         
-        let results:FMResultSet? = databaseInstance!.executeQuery(querySQL,
-            withArgumentsInArray: nil)
-        
-        while results?.next() == true {
-            let r = (results?.resultDictionary())!
-            let p = Place(dict: r)
-            places.append(p)
+                var cities : [String] = []
+        databaseQueue!.inTransaction { db, rollback in
+            
+            let results:FMResultSet? = db.executeQuery(querySQL,
+                withArgumentsInArray: nil)
+            while results?.next() == true {
+                
+                let r = (results?.resultDictionary())!
+                let city = r["cityTitle"] as! String
+                
+                cities.append(city)
+            }
             
         }
         databaseInstance?.close()
-        
-        return places
+        return cities
     }
     
-    class func getCommentsOfPlace(placeID : Int) -> [Comment] {
-        
-        var comments : [Comment] = []
+    class func getStationsOfCity(nammed city: String, direction : Direction) -> [Station]  {
         databaseInstance?.open()
-        let querySQL = "SELECT * FROM COMMENT WHERE PLACE_ID = \(placeID) ORDER BY DATE"
+        let querySQL = "SELECT * FROM STATION WHERE cityTitle = '\(city)' AND direction = \(direction.rawValue)"
+        var stations : [Station] = []
         
-        let results:FMResultSet? = databaseInstance!.executeQuery(querySQL,
-            withArgumentsInArray: nil)
-        
-        while results?.next() == true {
-            let r = (results?.resultDictionary())!
-            let p = Comment(dict: r)
-            comments.append(p)
+        databaseQueue!.inTransaction { db, rollback in
+            let results:FMResultSet? = db.executeQuery(querySQL,
+                                                                      withArgumentsInArray: nil)
+            
+            while results?.next() == true {
+                
+                let r = (results?.resultDictionary())!
+                let station = Station(dict: r)
+                
+                stations.append(station)
+            }
+        }
+        databaseInstance?.close()
+        return stations
+    }
+    
+    class func searchForCitiesWithStations(containsString str: String, direction : Direction) -> [String] {
+        databaseInstance?.open()
+        let querySQL = "SELECT DISTINCT cityTitle FROM STATION WHERE stationTitle LIKE '%\(str)%' AND direction = \(direction.rawValue) ORDER BY cityTitle ASC"
+        var cities : [String] = []
+        databaseQueue!.inTransaction { db, rollback in
+            
+            let results:FMResultSet? = db.executeQuery(querySQL,
+                withArgumentsInArray: nil)
+            while results?.next() == true {
+                
+                let r = (results?.resultDictionary())!
+                let city = r["cityTitle"] as! String
+                
+                cities.append(city)
+            }
             
         }
         databaseInstance?.close()
 
-        return comments
+        return cities
     }
     
-    class func getCommentAuthor(comment : Comment)-> User {
+    class func searchForStationsOfCity(nammed city: String, containsString str: String, direction : Direction)->[Station] {
         databaseInstance?.open()
-
-        
-        let querySQL = "SELECT * FROM USER WHERE ID = '\(comment.userID)'"
-        let results:FMResultSet? = databaseInstance!.executeQuery(querySQL,
-            withArgumentsInArray: nil)
-        
-        var u : User = User()
-        if results?.next() == true {
-            let r = (results?.resultDictionary())!
-            u = User(dict: r)
+        let querySQL = "SELECT * FROM STATION WHERE stationTitle LIKE '%\(str)%' AND cityTitle = '\(city)' AND direction = \(direction.rawValue)"
+        var stations : [Station] = []
+        databaseQueue!.inTransaction { db, rollback in
+            let results:FMResultSet? = db.executeQuery(querySQL,
+                                                                      withArgumentsInArray: nil)
             
+            while results?.next() == true {
+                
+                let r = (results?.resultDictionary())!
+                let station = Station(dict: r)
+                
+                stations.append(station)
+            }
         }
         databaseInstance?.close()
-        return u
+
+        return stations
     }
-    
-    class func setCurrentUser(surname : String, phone : String) {
-        databaseInstance?.open()
-        
-        let querySQL = "SELECT * FROM USER WHERE SURNAME = '\(surname)' AND PHONE = '\(phone)'"
-        
-        let results:FMResultSet? = databaseInstance!.executeQuery(querySQL,
-            withArgumentsInArray: nil)
-        
-        if results?.next() == true {
-            let r = (results?.resultDictionary())!
-            let u = User(dict: r)
-            currentUser = u
-            print(u.id)
-            NSUserDefaults.standardUserDefaults().setValue(surname, forKey: "currentUserSurname")
-            NSUserDefaults.standardUserDefaults().setValue(phone, forKey: "currentUserPhone")
-        }
-        
-        
-        databaseInstance?.close()
-        
-    }
-    
-    class func dropTable(tableName : String) {
-        databaseInstance?.open()
-        let querySQL = "DROP TABLE \(tableName)"
-        
-        let results = databaseInstance!.executeQuery(querySQL,
-            withArgumentsInArray: nil)
-        
-        
-        databaseInstance?.close()
-    }
-    
-    class func updatePlace(place : Place) {
-        databaseInstance?.open()
-        
-        let querySQL = "UPDATE PLACE SET NUMBEROFRATES = \(place.numberOfRates), RATE = \(place.rate) WHERE ID = \(place.id)"
-        
-        let result = databaseInstance!.executeUpdate(querySQL, withArgumentsInArray:nil)
-        
-        if !result {
-            print("Failed to add contact")
-            print("Error: \(databaseInstance!.lastErrorMessage())")
-        }
-        
-        
-        databaseInstance?.close()
-    }
-    
+
 }
